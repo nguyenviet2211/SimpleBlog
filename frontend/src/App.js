@@ -13,8 +13,8 @@ import { useForm } from "react-hook-form";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Component/login";
 import AddNewPost from "./Component/addPost";
-import Posts from "./Component/Post";
-import PostLists from "./Component/Post";
+import Posts from "./Component/Posts";
+import PostLists from "./Component/PostList";
 import Post from "./Component/Post";
 
 function Home() {

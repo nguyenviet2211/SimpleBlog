@@ -10,8 +10,6 @@ const PhotoRouter = require("./routes/PhotoRouter");
 
 
 
-
-
 dbConnect();
 
 app.use(cors());
