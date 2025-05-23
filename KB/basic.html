@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--Thẻ khổi(block) tự động xuống dòng vì chiếm hết chiều ngang của phần tử cha
+            VD: <h1>, <h2>, <h3>, <p>, <div>, <form>, <table>, <ul>, <ol>, <li>, <header>, <footer>, <section>, <article>, <nav>...
+            Thẻ khối có thể chứa các thẻ khối khác và thẻ inline
+            Thẻ inline không tự động xuống dòng vì chỉ chiếm chiều ngang cần thiết    
+            VD: <span>, <a>, <img>, <strong>, <em>, <i>, <b>, <u>, <br>, <hr>...
+            Thẻ inline chỉ có thể chứa các thẻ inline khác
+        -->
+        <!--
+        Thẻ <head> chứa các thông tin về tài liệu HTML như tiêu đề, từ khóa, mô tả, liên kết đến các tệp CSS và JavaScript, v.v.
+        Thẻ <title> chứa tiêu đề của tài liệu HTML, được hiển thị trên thanh tiêu đề của trình duyệt.
+        -->
+        <meta charset="UTF-8">
+        <!-- Hiển thị trong kết quả tìm kiếm Google. -->
+        <meta name="description" content="Trang web chia sẻ kiến thức về HTML cơ bản cho người mới bắt đầu.">
+        <meta name="keywords" content="HTML, cơ bản, hướng dẫn, người mới bắt đầu">
+        <!-- Giúp trang web tự điều chỉnh kích thước phù hợp với thiết bị (điện thoại, máy tính bảng...). -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Viet">
+        <!--quyết định cách đường link của trang web hiển thị trên các nền tảng khác như facebook, zalo,...-->
+        <meta property="og:title" content="Tên bài viết">
+        <meta property="og:description" content="Mô tả khi &quot;trang web&quot; được chia sẻ lên Facebook">
+        <meta property="og:image" content="https://example.com/image.jpg">
+        <meta property="og:url" content="https://example.com/trang-bai-viet">
+        <link rel="stylesheet" href="basic.css">
+        <title>Basic html</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Basic HTML Template</h1>
+            <h2>Heading 2 &lt;h2&gt; </h2>
+            <h3>Heading 3 &amp; a&nbsp;a</h3>
+            <i>Italic word</i> <br/>
+            <U>Underline word</U><br/>
+            <b>Bold word</b>
+            <p>This is a paragraph</p>
+            <p><b>This is another paragraph</b></p>
+            <div>div chứa các nhóm thẻ lớn, hiển thị kiểu block</div>
+            <span style="white-space:nowrap">span chứa các nhóm nhỏ, hiển thị inline iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</span>
+        </header>
+        
+        <!--<section>: phần nội dung độc lập (như 1 chương).
+            <article>: nội dung tự đứng riêng (ví dụ: bài viết).
+            <header>: phần đầu mục hoặc đầu trang.
+            <footer>: chân trang hoặc chân phần.
+            <nav>: vùng điều hướng.
+            <aside>: nội dung phụ, như sidebar.
+            <main>: phần chính của tài liệu.
+            <figure>: hình ảnh hoặc nội dung minh họa.
+            👉 Giúp các công cụ như Google, screen reader hiểu rõ cấu trúc nội dung hơn là chỉ dùng div.
+        -->
+
+        <main>
+            <!-- điều hướng -->
+            <nav>
+                <h4>Navigation</h4>
+                <p><i>Click on the links below to navigate:</i></p>
+                <ul>
+                    <li><a href="#listItem1" target="_blank" title="mouse over">Unordered List item 1</a></li>
+                    <li><a href="#listItem2">Unordered List item 2</a></li>
+                    <li><a href="#listItem3">Unordered List item 3</a></li>
+                </ul>
+            </nav>
+
+            <ol>
+                <li>Ordered List item 1</li>
+                <li>Ordered List item 2</li>
+                <li>Ordered List item 3</li>
+            </ol>
+            <!-- #ten_id	.ten_class -->
+            <section id = "gioithieu">
+                <h4>Giới thiệu</h4>
+                <p><strong>strong</strong></p>
+                <img src="https://via.placeholder.com/150" alt="Placeholder Image">
+            </section>
+
+            <section>
+                <h4>Bảng</h4>
+                <table class="table" border="1">
+                    <caption>Danh sách sinh viên</caption>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Tuổi</th>
+                        <th>Thành phố</th>
+                    </tr>
+                    <tr>
+                        <td>Lan</td>
+                        <td>21</td>
+                        <td>Hà Nội</td>
+                    </tr>
+                    <tr>
+                        <td>Nam</td>
+                        <td>22</td>
+                        <td>Đà Nẵng</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <h4>Biểu mẫu liên hệ</h4>
+                <form id="lienhe">
+                    <label>Họ tên:</label><br>
+                    <!--
+                    Thuộc tính của input:
+                    - type: kiểu dữ liệu của input (text, email, password, number, date, file, radio, checkbox, submit...)
+                    - name: tên của input, được sử dụng để gửi dữ liệu đến máy chủ
+                    - placeholder: văn bản hiển thị trong input khi chưa có dữ liệu
+                    - value: giá trị mặc định của input
+                    - required: yêu cầu người dùng nhập dữ liệu vào input trước khi gửi biểu mẫu
+                    - disabled: vô hiệu hóa input, không cho phép người dùng nhập dữ liệu
+                    - readonly: chỉ cho phép người dùng xem dữ liệu trong input, không cho phép nhập dữ liệu
+                    -->
+                    <input type="text" name="hoten" placeholder="your name" disabled="true"><br><br>
+
+                    <label>Email:</label><br>
+                    <input type="email" name="email" placeholder="your email"><br><br>
+
+                    <label>Ghi chú:</label><br>
+                    <!--ô nhập nhiều dòng-->
+                    <textarea name="note" rows="4" cols="30"></textarea><br><br>
+
+                    <select>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                        <option value="5">Option 5</option>
+                    </select>
+
+                    <input type="submit" value="Gửi">
+                </form>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Trang HTML ví dụ. Mọi quyền được bảo lưu.</p>
+        </footer>
+    </body>
+</html>

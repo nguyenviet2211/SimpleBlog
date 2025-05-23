@@ -13,21 +13,24 @@ import { useForm } from "react-hook-form";
 
 function PostLists() {
   const [data, setData] = useState([]);
-  fetch("http://localhost:8080/api/titles")
-    .then((response) => response.json())
-    .then((data) => {
-      setData(data);
-    })
-    .catch((err) => {
-      console.error("Fetch failed:", err);
-    });
+  
+  useEffect(() => {
+    fetch("http://localhost:8080/api/posts/")
+      .then((response) => response.json())
+      .then((posts) => {
+        setData(posts);
+      })
+      .catch((err) => {
+        console.error("Fetch failed:", err);
+      });
+  }, []); 
 
   return (
     <ul>
-      {data.map((title, index) => (
-        <li key={index}>
-          <Link to={`/posts/${title}`}>
-            <h3>{title}</h3>
+      {data.map((post) => (
+        <li key={post._id}>
+          <Link to={`/posts/${post.slug}`}>
+            <h3>{post.title}</h3>
           </Link>
         </li>
       ))}

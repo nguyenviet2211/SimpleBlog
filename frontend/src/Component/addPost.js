@@ -23,7 +23,7 @@ function AddNewPost({ user }) {
   const onSubmit = async (data) => {
     const post = JSON.stringify(data);
     try {
-      const response = await fetch("http://localhost:8080/api/post", {
+      const response = await fetch("http://localhost:8080/api/posts/", {
         method: "post",
         headers: {
           Accept: "application /json",

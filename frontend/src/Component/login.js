@@ -15,26 +15,62 @@ import { useForm } from "react-hook-form";
 function Login({ onLogin }) {
   const [creds, setCreds] = useState({});
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/login", {
+      if (!creds.username || !creds.password) {
+        setError("Please enter both username and password");
+        return;
+      }
+      
+      const response = await fetch("http://localhost:8080/api/user/login", {
         method: "post",
         headers: {
-          Accept: "application /json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(creds),
       });
+      
+      console.log("Response status:", response.status);
+      
       if (response.ok) {
-        onLogin && onLogin({ username: creds.username });
-        navigate("/stats");
-      } else setError("Invalid username or password!");
+        try {
+          const userData = await response.json();
+          console.log("Login successful:", userData);
+            // Lưu ID người dùng vào localStorage để sử dụng cho bình luận
+          localStorage.setItem("userId", userData._id);
+          localStorage.setItem("userName", userData.first_name + " " + userData.last_name);
+          
+          // Cập nhật state người dùng đăng nhập
+          onLogin && onLogin({
+            id: userData._id, 
+            firstName: userData.first_name,
+            lastName: userData.last_name,
+            username: creds.username
+          });
+          
+          // Chuyển hướng đến trang stats
+          navigate("/stats");
+        } catch (jsonError) {
+          console.error("Error parsing JSON response:", jsonError);
+          setError("Server returned invalid data. Please try again.");
+        }
+      } else {
+        try {
+          const errorData = await response.json();
+          setError(errorData.error || "Invalid username or password!");
+        } catch (jsonError) {
+          const errorText = await response.text();
+          console.error("Non-JSON response:", errorText);
+          setError(`Server error: ${response.status}`);
+        }
+      }
     } catch (error) {
       console.error("Login error:", error);
-      setError("Login failed!");
+      setError("Login failed! Please check your connection.");
     }
   };
+
   return (
     <div style={{ padding: 10 }}>
       {" "}

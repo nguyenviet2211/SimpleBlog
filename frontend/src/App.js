@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./Component/ProtectedRoute";
 import Login from "./Component/login";
 import AddNewPost from "./Component/addPost";
 import Posts from "./Component/Posts";
@@ -58,7 +58,14 @@ function AppLayout() {
   const [user, setUser] = useState();
   const navigate = useNavigate();
   function logOut() {
+    // Xóa thông tin người dùng từ state
     setUser(null);
+    
+    // Xóa thông tin người dùng từ localStorage
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
+    
+    // Chuyển hướng về trang chủ
     navigate("/");
   }
   return (
