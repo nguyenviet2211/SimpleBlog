@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation</title>
+</head>
+<body>
+    <h1>DOM Manipulation</h1>
+    <p>This page demonstrates how to manipulate the Document Object Model (DOM) using JavaScript.</p>
+
+    <button id="changeTextButton">Change Text</button>
+    <p id="text">This is some text that will be changed.</p>
+
+    <button id="domChange" onclick="changeDOM()">Change DOM</button>
+
+    <div id="container">
+        <p id="originalParagraph">Original paragraph</p>
+    </div>
+
+    <script>
+        // Tham chiếu đến các phần tử và thay đổi thuộc tính của chúng
+        // getElementById được sử dụng để lấy phần tử theo ID
+        // addEventListener được sử dụng để thêm sự kiện click vào nút
+        // getElementByClassName có thể được sử dụng để lấy phần tử theo class
+        document.getElementById('changeTextButton').addEventListener('click', function() {
+            // Truy cập phần tử
+            document.getElementById('text').textContent = 'The text has been changed!';
+            element = document.getElementById('text');
+            document.getElementById("id");
+            document.getElementsByClassName("className");
+            document.getElementsByTagName("tagName");
+            document.querySelector("selector");
+            document.querySelectorAll("selector");
+            // Thuộc tính cơ bản của phần tử
+            console.log(element); // 
+            console.log(element.nodeName);           // Tên thẻ: "DIV", "P", "#text"
+            console.log(element.nodeType);           // Loại node: 1 (Element), 3 (Text), ...
+            console.log(element.parentNode);
+            console.log(element.firstChild);
+            console.log(element.lastChild);
+            console.log(element.previousSibling);
+            console.log(element.nextSibling);
+            // Truy cập và thay đổi nội dung
+            element.textContent;        // Trả về toàn bộ text
+            element.innerHTML = "<b>xyz</b>";          // Trả về HTML bên trong element, hoặc thay đổi nội dung bên trong
+            element.outerHTML = "<i>abc</i>";          // Bao gồm cả thẻ của element, thay đổi toàn bộ element
+
+            console.log(element.getAttribute("innerHTML")); // Trả về giá trị của thuộc tính innerHTML
+            console.log(element.setAttribute("attr", "value"));
+
+            
+
+
+        });
+        function changeDOM() {
+            console.log("running changeDOM function");
+            
+            // Định nghĩa các biến cần thiết
+            let parent = document.getElementById('container');
+            let newEl = document.createElement("p");
+            let text = document.createTextNode("My Text - Added by changeDOM()");
+            
+            // Thêm text vào element mới
+            newEl.appendChild(text);
+            
+            // Thêm element mới vào parent
+            parent.appendChild(newEl);
+            
+            // Ví dụ về insertBefore (thêm element trước element đầu tiên)
+            let anotherEl = document.createElement("p");
+            anotherEl.textContent = "Inserted before first child";
+            let firstChild = parent.firstElementChild;
+            if (firstChild) {
+                parent.insertBefore(anotherEl, firstChild);
+            }
+            
+            // Ví dụ về removeChild (xóa element cuối cùng sau 3 giây)
+            setTimeout(() => {
+                let lastChild = parent.lastElementChild;
+                if (lastChild && lastChild.id !== 'originalParagraph') {
+                    parent.removeChild(lastChild);
+                    console.log("Removed last element");
+                }
+            }, 3000);
+        }
+
+        
+
+
+    </script>
+</body>
+
+</html>

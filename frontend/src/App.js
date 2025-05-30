@@ -7,6 +7,7 @@ import {
   Outlet,
   useParams,
   useNavigate,
+  data,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -57,15 +58,14 @@ function Stats({ user }) {
 function AppLayout() {
   const [user, setUser] = useState();
   const navigate = useNavigate();
+  
   function logOut() {
-    // Xóa thông tin người dùng từ state
     setUser(null);
     
-    // Xóa thông tin người dùng từ localStorage
     localStorage.removeItem("userId");
-    localStorage.removeItem("userName");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
     
-    // Chuyển hướng về trang chủ
     navigate("/");
   }
   return (
@@ -101,6 +101,7 @@ function AppLayout() {
             Add New Post
           </Link>
         )}
+
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -118,6 +119,7 @@ function AppLayout() {
             </ProtectedRoute>
           }
         />
+
         <Route path="/addNewPost" element={<AddNewPost user={user} />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>

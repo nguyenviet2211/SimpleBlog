@@ -37,11 +37,11 @@ function Login({ onLogin }) {
         try {
           const userData = await response.json();
           console.log("Login successful:", userData);
-            // Lưu ID người dùng vào localStorage để sử dụng cho bình luận
+          // Luu user ID vào local
           localStorage.setItem("userId", userData._id);
-          localStorage.setItem("userName", userData.first_name + " " + userData.last_name);
+          localStorage.setItem("firstName", userData.first_name);
+          localStorage.setItem("lastName", userData.last_name);
           
-          // Cập nhật state người dùng đăng nhập
           onLogin && onLogin({
             id: userData._id, 
             firstName: userData.first_name,
@@ -49,7 +49,6 @@ function Login({ onLogin }) {
             username: creds.username
           });
           
-          // Chuyển hướng đến trang stats
           navigate("/stats");
         } catch (jsonError) {
           console.error("Error parsing JSON response:", jsonError);

@@ -46,6 +46,7 @@ function Post() {
     return <span>Loading...</span>;
   }
   const handleCommentSubmit = async () => {
+
     if (!comment.trim()) return;
 
     try {
@@ -53,21 +54,25 @@ function Post() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-        },      body: JSON.stringify({
+        },      
+        body: JSON.stringify({
           text: comment,
-          // Nếu người dùng đã đăng nhập, sử dụng ID của họ
-          // Nếu không, sử dụng một ID ẩn danh hoặc thêm code để yêu cầu đăng nhập trước 
           userId: localStorage.getItem("userId") || "anonymous"
         }),
       });
 
-      if (response.ok) {
-        const updatedPost = await response.json();
-        if (updatedPost && updatedPost.Comments) {
-          setComments(updatedPost.Comments);
-          setComment("");
-        }
+      console.log(localStorage.getItem("firstName"), localStorage.getItem("lastName"));
+      const newComment = {
+        user: {
+          first_name: localStorage.getItem("firstName"),
+          last_name: localStorage.getItem("lastName")
+        },
+        text : comment,
+        date : Date.now()
       }
+      
+      setComments(prev => [...prev, newComment]);
+      setComment("");
     } catch (error) {
       console.error("Error posting comment:", error);
     }
@@ -86,70 +91,28 @@ function Post() {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Write a comment..."
-            style={{ 
-              padding: 8, 
-              width: 300,
-              borderRadius: 4,
-              border: '1px solid #ddd',
-              marginRight: 10
-            }}
           />
-          <button 
-            onClick={handleCommentSubmit}
-            style={{ 
-              padding: '8px 16px',
-              backgroundColor: '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: 4,
-              cursor: 'pointer'
-            }}
-          >
+          <button  onClick={handleCommentSubmit}>
             Comment
           </button>
-        </div>        <div style={{ maxWidth: 600 }}>
+        </div>        
+        <div style={{ maxWidth: 600 }}>
           {!comments || comments.length === 0 ? (
             <p style={{ color: '#666', fontStyle: 'italic' }}>No comments yet. Be the first to comment!</p>
           ) : (
             comments.map((commentItem, index) => (
-              <div 
-                key={commentItem._id || index} 
-                style={{ 
-                  marginBottom: 15,
-                  padding: 15,
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: 8,
-                  border: '1px solid #e9ecef',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-                }}
-              >
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  marginBottom: 8 
-                }}>
-                  <div style={{ 
-                    width: 32, 
-                    height: 32, 
-                    borderRadius: '50%', 
-                    backgroundColor: '#007bff',
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginRight: 10
-                  }}>
-                    {String.fromCharCode(65 + (index % 26))}
-                  </div>                  <div>
-                    <div style={{ fontWeight: 'bold' }}>
-                      {/* Hiển thị tên người dùng nếu comment có thông tin user */}
+              <div key={commentItem._id || index}>
+                <div>           
+                  <div>
+                    <div>
                       {commentItem.user ? `${commentItem.user.first_name} ${commentItem.user.last_name}` : `Người dùng ${index + 1}`}
                     </div>
-                    <div style={{ fontSize: '0.8em', color: '#666' }}>
+                    <div>
                       {new Date(commentItem.date || Date.now()).toLocaleDateString()}
                     </div>
                   </div>
                 </div>
+                
                 <div style={{ marginLeft: 42 }}>{commentItem.text}</div>
               </div>
             ))

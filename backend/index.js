@@ -16,7 +16,7 @@ app.use("/api/user", UserRouter);
 app.use("/api/posts", PostRouter);
 
 app.get("/", function (req, res) {
-  res.write("Hello from CodeSandbox!");
+  res.write("Hello!");
   res.end();
 });
 

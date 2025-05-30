@@ -28,7 +28,8 @@ router.get("/:id", async (request, response) => {
 // Get post by slug
 router.get("/slug/:slug", async (request, response) => {
   try {
-    const post = await Post.findOne({ slug: request.params.slug });
+    const post = await Post.findOne({ slug: request.params.slug })
+                            .populate("Comments.user", "first_name last_name");
     if (!post) {
       return response.status(404).json({ error: "Post not found" });
     }
@@ -52,7 +53,8 @@ router.post("/", async (request, response) => {
 // Add comment to post
 router.post("/:id/comment", async (request, response) => {
   try {
-    const post = await Post.findById(request.params.id);
+    const post = await Post .findById(request.params.id)
+                            .populate("Comments.user", "first_name last_name");
     if (!post) {
       return response.status(404).json({ error: "Post not found" });
     }
@@ -62,8 +64,6 @@ router.post("/:id/comment", async (request, response) => {
       text: request.body.text
     });
     
-    const updatedPost = await post.save();
-    response.json(updatedPost);
   } catch (error) {
     response.status(400).json({ error: error.message });
   }
